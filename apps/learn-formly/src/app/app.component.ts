@@ -28,7 +28,7 @@ export class AppComponent {
       key: 'age',
       type: 'input',
       templateOptions: {
-        type: 'text',
+        type: 'number',
         label: 'Age',
         appearance: 'outline'
       }
