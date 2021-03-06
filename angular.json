@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "defaultProject": "learn-formly",
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "projects": {
+    "learn-formly": {
+      "projectType": "application",
+      "root": "apps/learn-formly",
+      "sourceRoot": "apps/learn-formly/src",
+      "prefix": "learn-formly",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/learn-formly",
+            "index": "apps/learn-formly/src/index.html",
+            "main": "apps/learn-formly/src/main.ts",
+            "polyfills": "apps/learn-formly/src/polyfills.ts",
+            "tsConfig": "apps/learn-formly/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/learn-formly/src/favicon.ico",
+              "apps/learn-formly/src/assets"
+            ],
+            "styles": ["apps/learn-formly/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/learn-formly/src/environments/environment.ts",
+                  "with": "apps/learn-formly/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "learn-formly:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "learn-formly:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "learn-formly:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/learn-formly/src/**/*.ts",
+              "apps/learn-formly/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/learn-formly"],
+          "options": {
+            "jestConfig": "apps/learn-formly/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "learn-formly-e2e": {
+      "root": "apps/learn-formly-e2e",
+      "sourceRoot": "apps/learn-formly-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/learn-formly-e2e/cypress.json",
+            "tsConfig": "apps/learn-formly-e2e/tsconfig.e2e.json",
+            "devServerTarget": "learn-formly:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "learn-formly:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/learn-formly-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  }
+}
