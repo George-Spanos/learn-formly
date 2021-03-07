@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { DataService } from './data.service';
 
 @Component({
   selector: 'learn-formly-root',
@@ -12,7 +13,8 @@ export class AppComponent {
   form = new FormGroup({});
   model = {
     firstname: 'Juri',
-    age: 34
+    age: 34,
+    nationId: 1
   };
   fields: FormlyFieldConfig[] = [
     {
@@ -22,6 +24,11 @@ export class AppComponent {
         type: 'text',
         label: 'Firstname',
         appearance: 'outline'
+      },
+      hooks: {
+        onInit: ((field: FormlyFieldConfig)  => {
+          field.templateOptions.label = 'Firstname Changed'
+        })
       }
     },
     {
@@ -33,8 +40,19 @@ export class AppComponent {
         appearance: 'outline'
       }
     },
+    {
+      key: 'nationId',
+      type: 'select',
+      templateOptions: {
+        label: 'Nation',
+        appearance: 'outline',
+        options: this.data.getNations()
+      }
+    },
 
   ]
+  constructor(private data: DataService) { }
+
   onSubmit({ valid, value }) {
     console.log(value)
   }
