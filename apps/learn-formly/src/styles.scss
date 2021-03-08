@@ -1,4 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import "~@ng-select/ng-select/themes/material.theme.css";
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.display-flex {
+    display: flex;
+}
+.flex-1 {
+    flex: 1;
+}
+.flex-2 {
+    flex: 2;
+}
+.flex-3 {
+    flex: 3;
+}
+.flex-4 {
+    flex: 4;
+}
+.flex-5 {
+    flex: 5;
+}
+.flex-6 {
+    flex: 6;
+}
